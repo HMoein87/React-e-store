@@ -62,7 +62,7 @@ nav {
     -ms-flex: 0.5;
     flex: 0.1;
     background: white;
-    border: 2px solid lightblue;
+    border-right: 5px solid lightblue;
     padding: 20px;
 }
 
