@@ -7,4 +7,4 @@ const Category = ({id, title, onCategoryClick}) => {
   )
 }
 
-export default Category
+export default Category;

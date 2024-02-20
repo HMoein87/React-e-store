@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
+import './App.css';
+
+import { getCategories, getProducts } from './fetchAPI';
 
 import Category from './Components/Category';
-import { getCategories, getProducts } from './fetchAPI';
-import './App.css';
+import CategoryProduct from './Components/CategoryProduct';
 
 
 function App() {
@@ -41,9 +43,7 @@ function App() {
 
   //render product component
   const renderProducts = () => {
-    return products.data.map(p =>
-      <div key={p.id}>{p.title}</div>
-    );
+    return products.data.map(p => <CategoryProduct {...p}>{p.title}</CategoryProduct>);
   }
 
 
@@ -57,11 +57,11 @@ function App() {
         { categories.data && renderCategories() }
       </nav>
 
-      <article>
+      <main>
         <h1>Products</h1>
         { products.errormessage && <div>Error: {products.errormessage}</div>}
         { products.data && renderProducts()}
-      </article>
+      </main>
     </section>
     
     <footer>
