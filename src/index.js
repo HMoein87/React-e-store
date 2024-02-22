@@ -5,10 +5,15 @@ import {
   Switch,
   Route,
   Link,
+  Routes
 } from "react-router-dom";
 import './index.css';
 import App from './App';
-import { Routes } from 'react-router';
+
+import ShoppingCart from './Components/ShoppingCart';
+import Checkout from './Components/Checkout';
+import ProductDetails from './Components/ProductDetails';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +21,9 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="shoppingCart" element={<ShoppingCart />} />
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="products/:productId" element={<ProductDetails />} />
       </Routes>
     </Router>
   </>
