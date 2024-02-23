@@ -74,7 +74,6 @@ export default CategoryProduct;
 
 //style CategoryProduct using style component
 const ProductTitle = styled.div`
-    grid-column: 1 / span 3;
     padding-top: 20px;
     padding-left: 20px;
     font-size: 20px;
