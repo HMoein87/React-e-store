@@ -5,7 +5,14 @@ import styled from 'styled-components';
 
 
 //CategoryProduct component
-const CategoryProduct = ({id, title, image, specs, features, price, stock}) => {
+const CategoryProduct = ({
+    id, 
+    title, 
+    image, 
+    specs, 
+    features, 
+    price, 
+    stock}) => {
     const navigate = useNavigate();
   return (
     <>
@@ -72,7 +79,6 @@ const ProductTitle = styled.div`
     padding-left: 20px;
     font-size: 20px;
     font-weight: bold;
-    color: darkgreen;
 `;
 
 const ProductItem = styled.article`
