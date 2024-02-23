@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 import { getCategories, getProducts } from './fetchAPI';
 
-import Category from './Components/Category';
 import CategoryProduct from './Components/CategoryProduct';
 
 
@@ -37,15 +37,9 @@ function App() {
   //render category component
   const renderCategories = () => {
     return categories.data.map(c => 
-      <Category key={c.id} id={c.id} title={c.title} onCategoryClick={() => handleCategoryClick(c.id)}/>
-    );
+      <li key={c.id}><Link to={`categories/${c.id}`}>{c.title}</Link></li>
+      );
   }
-
-  //render products component
-  const renderProducts = () => {
-    return products.data.map(p => <CategoryProduct key={p.id} {...p}>{p.title}</CategoryProduct>);
-  }
-
 
   return (
     <>
@@ -54,13 +48,11 @@ function App() {
     <section>
       <nav>
         { categories.errormessage && <div>Error: {categories.errormessage}</div>}
-        { categories.data && renderCategories() }
+        <ul>{ categories.data && renderCategories() }</ul>
       </nav>
 
       <main>
-        <h1>Products</h1>
-        { products.errormessage && <div>Error: {products.errormessage}</div>}
-        { products.data && renderProducts()}
+        
       </main>
     </section>
     
