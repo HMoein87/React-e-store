@@ -31,3 +31,8 @@ export const getCategories = () => {
 export const getProducts = (id) => {
     return fetchAPI("/products?catId=" + id);
 }
+
+//fetch products data by their id
+export const getProductsById = (id) => {
+    return fetchAPI("/products/" + id);
+}

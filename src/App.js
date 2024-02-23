@@ -14,7 +14,7 @@ function App() {
 
   //initialize the store with fetching categories data from API
   useEffect(() => {
-    //this function fetch categories data async and set the state
+    //fetch categories data async and set the state
     const fetchData = async () => {
       const responseObject = await getCategories();
       setCategories(responseObject);
@@ -41,7 +41,7 @@ function App() {
     );
   }
 
-  //render product component
+  //render products component
   const renderProducts = () => {
     return products.data.map(p => <CategoryProduct key={p.id} {...p}>{p.title}</CategoryProduct>);
   }

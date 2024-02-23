@@ -56,9 +56,10 @@ section {
     display: flex;
 }
 
-section article {
+article {
     display: grid;
     grid-template-columns: 0.5fr 0.75fr 0.5fr;
+    margin-bottom: 40px;
 }
 
 .category-product-title {
