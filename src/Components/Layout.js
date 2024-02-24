@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Outlet, Link } from 'react-router-dom';
+import Footer from './Footer';
 
 //Layout Component
 const Layout = ({categories}) => {
@@ -23,12 +24,12 @@ const Layout = ({categories}) => {
                 </nav>
 
                 <main>
-                    <Outlet/>
+                    <Outlet />
                 </main>
             </section>
         
             <footer>
-                Footer
+                <Footer />
             </footer>
         </>
     );
