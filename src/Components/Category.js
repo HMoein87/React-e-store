@@ -6,7 +6,7 @@ import { getProducts } from '../fetchAPI';
 import CategoryProduct from './CategoryProduct';
 
 //category component
-const Category = ({id, title, onCategoryClick}) => {
+const Category = () => {
   //category id parameter got by parameters in url
   const { categoriesId } = useParams();
 

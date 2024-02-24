@@ -13,61 +13,64 @@ const CategoryProduct = ({
     features, 
     price, 
     stock}) => {
-    const navigate = useNavigate();
-  return (
-    <>
-        <ProductTitle>
-            <Link to={`products/${id}`}>{title}</Link>
-        </ProductTitle>
 
-        <ProductItem>
-            <figure>
-                <ProductImageContainer>
-                    <ProductImageContainerImage src={`/assets/${image}`} alt={title}/>
-                </ProductImageContainer>
-            </figure>
-            
-            <ProductSpecs>
-                <div>
-                    <h3>Dimensions</h3>
-                    <ProductLabels>{specs.dimensions}</ProductLabels>
-                </div>
+        //navigate between pages
+        const navigate = useNavigate();
+        
+        return (
+            <>
+                <ProductTitle>
+                    <Link to={`/products/${id}`}>{title}</Link>
+                </ProductTitle>
 
-                {specs.capacity &&
-                <div>
-                    <h3>Capacity</h3>
-                    <ProductLabels>{specs.capacity}</ProductLabels>
-                </div>
-                }
+                <ProductItem>
+                    <figure>
+                        <ProductImageContainer>
+                            <ProductImageContainerImage src={`/assets/${image}`} alt={title}/>
+                        </ProductImageContainer>
+                    </figure>
+                    
+                    <ProductSpecs>
+                        <div>
+                            <h3>Dimensions</h3>
+                            <ProductLabels>{specs.dimensions}</ProductLabels>
+                        </div>
 
-                <div>
-                    <h3>Features</h3>
-                    <ProductFeatureUl>
-                        {features?.map((f, i) => {
-                            return <li key={`feature_${i}`}>{f}</li>
-                        })}
-                    </ProductFeatureUl>
-                </div>
-            </ProductSpecs>
+                        {specs.capacity &&
+                        <div>
+                            <h3>Capacity</h3>
+                            <ProductLabels>{specs.capacity}</ProductLabels>
+                        </div>
+                        }
 
-            <ProductFinance>
-                <ProductPrice>
-                &#36;CAD {price}
-                </ProductPrice>
+                        <div>
+                            <h3>Features</h3>
+                            <ProductFeatureUl>
+                                {features?.map((f, i) => {
+                                    return <li key={`feature_${i}`}>{f}</li>
+                                })}
+                            </ProductFeatureUl>
+                        </div>
+                    </ProductSpecs>
 
-                <ProductStock>
-                    <label>Stock Level: {stock}</label>
-                    <label>Free Delivery</label>
-                </ProductStock>
+                    <ProductFinance>
+                        <ProductPrice>
+                        &#36;CAD {price}
+                        </ProductPrice>
 
-                <ProductAction>
-                    <button onClick={() => {navigate(`products/${id}`)}}>View Product</button>
-                    <button>Add to Cart</button>
-                </ProductAction>
-            </ProductFinance>
-        </ProductItem>
-    </>
-  )
+                        <ProductStock>
+                            <label>Stock Level: {stock}</label>
+                            <label>Free Delivery</label>
+                        </ProductStock>
+
+                        <ProductAction>
+                            <button onClick={() => {navigate(`/products/${id}`)}}>View Product</button>
+                            <button>Add to Cart</button>
+                        </ProductAction>
+                    </ProductFinance>
+                </ProductItem>
+            </>
+        )
 }
 
 export default CategoryProduct;
