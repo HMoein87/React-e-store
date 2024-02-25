@@ -19,9 +19,39 @@ const CartContextProvider = ({children}) => {
         dispatch({ type: 'ADD', payload});        
     }
 
-    //json object passed to the component
+    //remove product from cart
+    const removeProduct = (payload) => {
+        dispatch({ type: 'REMOVE', payload});        
+    }
+
+    //increase product quantity exists in cart
+    const increaseQuantity = (payload) => {
+        dispatch({ type: 'INCQTY', payload});
+    }
+
+    //decrease product quantity exists in cart
+    const decreaseQuantity = (payload) => {
+        dispatch({ type: 'DECQTY', payload});
+    }
+
+    //clear cart
+    const clearCart = () => {
+        dispatch({ type: 'CLEAR', payload: undefined});
+    }
+
+    //retrieve items
+    const getItems = () => {
+        return state.cartItems;
+    }
+
+    //methods passed to the cart context provider component
     const contextValues = {
         addProduct,
+        removeProduct,
+        increaseQuantity,
+        decreaseQuantity,
+        clearCart,
+        getItems,
         ...state
     }
 
