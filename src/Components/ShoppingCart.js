@@ -1,13 +1,47 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { CartContext } from '../contexts/cartContext';
+import { UpIcon, DownIcon, TrashIcon } from './Icons';
+
 
 //ShoppingCart componentS
 const ShoppingCart = () => {
+  const navigate = useNavigate();
+  const {getItems, clearCart, increaseQuantity, decreaseQuantity, removeProduct} = useContext(CartContext);
+
+  const renderCart = () => {
+    const cartItems = getItems();
+
+    if (cartItems.length > 0) {
+      return cartItems.map((i) => (
+        <React.Fragment key={i.id}>
+          <div>
+            <Link to={`/products/${i.id}`}>{i.title}</Link>
+          </div>
+
+          <CartQty>
+            {i.quantity}
+            <UpIcon width={20} onClick={() => increaseQuantity({id: i.id})} />
+            <DownIcon width={20} onClick={() => decreaseQuantity({id: i.id})} />
+            <TrashIcon width={20} onClick={() => removeProduct({id: i.id})} />
+          </CartQty>
+
+          <CartPrice>
+          &#36;CAD {i.price}
+          </CartPrice>
+        </React.Fragment>
+      ));
+    }
+    else {
+      return <div>The cart is empty.</div>
+    }
+  }
   return (
     <CartContainer>
       <CartTitle>Shopping Cart</CartTitle>
-      <CartButton>Checkout</CartButton>
+      <CartButton onClick={() => navigate('/checkout')}>Checkout</CartButton>
       <CartTable>
         <CartHeader>
           <h4>Items</h4>
@@ -17,11 +51,11 @@ const ShoppingCart = () => {
         <CartHeaderLine />
 
         <CartHeader>
-          Cart Items
+          {renderCart()}
         </CartHeader>
         <CartHeaderLine />
 
-        <CartButton>Clear</CartButton>
+        <CartButton onClick={() => clearCart()}>Clear</CartButton>
         <CartTotal>Total: &#36;CAD 0</CartTotal>
       </CartTable>
     </CartContainer>
@@ -70,4 +104,16 @@ const CartHeaderLine = styled.hr`
 const CartTotal = styled.h2`
     justify-self: end;
     padding-top: 20px;
+`;
+
+const CartQty = styled.h3`
+    font-size: 18px;
+    font-weight: bold;
+    display: grid;
+    grid-template-columns: 0.2fr 0.05fr 0.2fr 0.2fr;
+`;
+
+const CartPrice = styled.h3`
+    font-size: 20px;
+    font-weight: bold;
 `;

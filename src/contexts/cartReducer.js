@@ -1,6 +1,5 @@
 
 export const CartReducer = (state, action) => {
-    debugger;
     let index = -1;
 
     if (action.payload)

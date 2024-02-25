@@ -21,7 +21,7 @@ header {
     font-size: 35px;
     color: white;
     display: grid;
-    grid-template-columns: 0.1fr 0.1fr 1fr 0.1fr;
+    grid-template-columns: 0.1fr 1fr 0.1fr;
 }
 
 header a {
@@ -84,7 +84,7 @@ nav ul li:hover {
 main {
     flex: 0.9;
     padding: 15px;
-    min-height: 1600px;
+    /*min-height: 1600px;*/
 }
 
 /* Style the footer */
