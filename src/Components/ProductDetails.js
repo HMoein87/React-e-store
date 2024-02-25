@@ -88,7 +88,7 @@ const ProductDetails = () => {
 
 export default ProductDetails;
 
-//style CategoryProduct using style component
+//style CategoryProduct using styled components
 const ProductTitle = styled.div`
     padding-top: 20px;
     padding-left: 20px;
