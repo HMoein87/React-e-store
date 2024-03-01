@@ -16,31 +16,36 @@ const CartContextProvider = ({children}) => {
 
     //add product to cart
     const addProduct = (payload) => {
-        dispatch({ type: 'ADD', payload});        
+        dispatch({ type: 'ADD', payload});
+        return state.cartItems;      
     }
 
     //remove product from cart
     const removeProduct = (payload) => {
-        dispatch({ type: 'REMOVE', payload});        
+        dispatch({ type: 'REMOVE', payload});
+        return state.cartItems;      
     }
 
     //increase product quantity exists in cart
     const increaseQuantity = (payload) => {
         dispatch({ type: 'INCQTY', payload});
+        return state.cartItems;
     }
 
     //decrease product quantity exists in cart
     const decreaseQuantity = (payload) => {
         dispatch({ type: 'DECQTY', payload});
+        return state.cartItems;
     }
 
     //clear cart
     const clearCart = () => {
         dispatch({ type: 'CLEAR', payload: undefined});
+        return state.cartItems;
     }
 
-    //retrieve items
-    const getItems = () => {
+    //retrieve items in the cart
+    const getCartItems = () => {
         return state.cartItems;
     }
 
@@ -51,7 +56,7 @@ const CartContextProvider = ({children}) => {
         increaseQuantity,
         decreaseQuantity,
         clearCart,
-        getItems,
+        getCartItems,
         ...state
     }
 

@@ -1,18 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { CartContext } from '../contexts/cartContext';
 import { UpIcon, DownIcon, TrashIcon } from './Icons';
+import { formatNumber } from '../utils';
 
 
 //ShoppingCart componentS
 const ShoppingCart = () => {
+  const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
-  const {getItems, clearCart, increaseQuantity, decreaseQuantity, removeProduct} = useContext(CartContext);
+  const {getCartItems, clearCart, increaseQuantity, decreaseQuantity, removeProduct} = useContext(CartContext);
 
+  useEffect(() => {
+    setCartItems(getCartItems());
+  }, [getCartItems]);
+  
   const renderCart = () => {
-    const cartItems = getItems();
 
     if (cartItems.length > 0) {
       return cartItems.map((i) => (
@@ -23,13 +28,13 @@ const ShoppingCart = () => {
 
           <CartQty>
             {i.quantity}
-            <UpIcon width={20} onClick={() => increaseQuantity({id: i.id})} />
-            <DownIcon width={20} onClick={() => decreaseQuantity({id: i.id})} />
-            <TrashIcon width={20} onClick={() => removeProduct({id: i.id})} />
+            <UpIcon width={20} onClick={() => setCartItems(increaseQuantity({id: i.id}))}></UpIcon>
+            <DownIcon width={20} onClick={() => setCartItems(decreaseQuantity({id: i.id}))}></DownIcon>
+            <TrashIcon width={20} onClick={() => setCartItems(removeProduct({ id: i.id }))}></TrashIcon>
           </CartQty>
 
           <CartPrice>
-          &#36;CAD {i.price}
+          {formatNumber(i.price)}
           </CartPrice>
         </React.Fragment>
       ));
@@ -38,6 +43,14 @@ const ShoppingCart = () => {
       return <div>The cart is empty.</div>
     }
   }
+
+  const renderTotal = () => {
+    const cartItems = getCartItems();
+    
+    const total = cartItems.reduce((total,item) => (total + item.price * item.quantity), 0);
+    return total;
+  }
+
   return (
     <CartContainer>
       <CartTitle>Shopping Cart</CartTitle>
@@ -55,9 +68,10 @@ const ShoppingCart = () => {
         </CartHeader>
         <CartHeaderLine />
 
+        </CartTable>
         <CartButton onClick={() => clearCart()}>Clear</CartButton>
-        <CartTotal>Total: &#36;CAD 0</CartTotal>
-      </CartTable>
+        <CartTotal>Total: {formatNumber(renderTotal())}</CartTotal>
+      
     </CartContainer>
   )
 }

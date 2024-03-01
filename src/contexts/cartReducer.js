@@ -6,15 +6,17 @@ export const CartReducer = (state, action) => {
         //find the index of the item in the shopping cart
         index = state.cartItems.findIndex(x => x.id === action.payload.id);
 
+    let newItems = [...state.cartItems];
+
     switch(action.type) {
         //add item and increase quantity of an item
         case "ADD":
         case "INCQTY":
             if (index === -1) {
-                state.cartItems.push({...action.payload, quantity: 1});
+                newItems.push({ ...action.payload, quantity: 1 });
             }
             else {
-                state.cartItems[index].quantity++;
+                newItems[index].quantity++;
             }
 
             break;
@@ -22,18 +24,21 @@ export const CartReducer = (state, action) => {
         //remove an item from cart
         case "REMOVE":
             if (index > -1)
-                state.cartItems.splice(index, 1);
+                newItems = state.cartItems.filter(x => x.id !== action.payload.id);
             break;
         //decrease quantity of an item
         case "DECQTY":
             if (index > -1)
-                state.cartItems[index].quantity--;
+                newItems[index].quantity--;
             break;
         //clear cart
         case "CLEAR":
-            state.cartItems = [];
+            newItems = [];
             break;
         default:
     }
+
+    state.cartItems = newItems;
+
     return state;
 } 
