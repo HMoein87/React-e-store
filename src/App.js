@@ -14,6 +14,7 @@ import ProductDetails from './Components/ProductDetails';
 import Category from './Components/Category';
 import Layout from './Components/Layout';
 import Home from './Components/Home';
+import OrderConfirmation from './Components/OrderConfirmation';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="cart" element={<ShoppingCart />} />
           <Route path="checkout" element={<Checkout />} />
+          <Route path="orderconfirmation" element={<OrderConfirmation />} />
           <Route path="products/:productId" element={<ProductDetails />} />
           <Route path="categories/:categoriesId" element={<Category />} />
         </Route>

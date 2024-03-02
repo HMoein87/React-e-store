@@ -29,12 +29,14 @@ export const CartReducer = (state, action) => {
         //decrease quantity of an item
         case "DECQTY":
             if (index > -1)
-                newItems[index].quantity--;
+                if (newItems[index].quantity > 1)
+                    newItems[index].quantity--;
             break;
         //clear cart
         case "CLEAR":
             newItems = [];
             break;
+        
         default:
     }
 

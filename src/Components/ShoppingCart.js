@@ -31,8 +31,7 @@ const ShoppingCart = () => {
             <UpIcon width={20} onClick={() => setCartItems(increaseQuantity({id: i.id}))}></UpIcon>
             <DownIcon width={20} onClick={() => setCartItems(decreaseQuantity({id: i.id}))}></DownIcon>
             <TrashIcon width={20} onClick={() => setCartItems(removeProduct({ id: i.id }))}></TrashIcon>
-          </CartQty>
-
+            </CartQty>
           <CartPrice>
           {formatNumber(i.price)}
           </CartPrice>
@@ -69,7 +68,7 @@ const ShoppingCart = () => {
         <CartHeaderLine />
 
         </CartTable>
-        <CartButton onClick={() => clearCart()}>Clear</CartButton>
+        <CartButton onClick={() => setCartItems(clearCart())}>Clear</CartButton>
         <CartTotal>Total: {formatNumber(renderTotal())}</CartTotal>
       
     </CartContainer>
