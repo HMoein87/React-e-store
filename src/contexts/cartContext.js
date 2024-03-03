@@ -6,8 +6,11 @@ import { CartReducer } from "./cartReducer";
 //create cart context
 export const CartContext = createContext();
 
+//get shopping cart items from local storage
+const Storage =  localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+
 //initialize cart state
-const initialState = { cartItems: [] };
+const initialState = { cartItems: Storage };
 
 //return provider of CartContext as a jsx
 const CartContextProvider = ({children}) => {
