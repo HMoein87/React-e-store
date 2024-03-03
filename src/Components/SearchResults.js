@@ -42,7 +42,7 @@ const SearchResults = () => {
         <div>
             <h1>Products</h1>
             { products.errormessage && <div>Error: {products.errormessage}</div>}
-            { products.data && renderProducts()}
+            {renderProducts()}
         </div>
     )
 }

@@ -20,7 +20,7 @@ const CategoryProduct = ({
         const navigate = useNavigate();
 
         //access to add product of cartContext
-        const { addProduct } = useContext(CartContext);;
+        const { addProduct } = useContext(CartContext);
         
         return (
             <>

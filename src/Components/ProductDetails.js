@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 
 import { getProductsById } from '../fetchAPI';
+import { CartContext } from '../contexts/cartContext';
 
 
 //prodcut details component
@@ -10,7 +11,10 @@ const ProductDetails = () => {
   //product id parameter got by parameters in url
   const {productId} = useParams();
   //product propery
-  const [product, setProduct] = useState({errormessage: '', data: {}})
+  const [product, setProduct] = useState({errormessage: '', data: {}});
+
+  //access to add product of cartContext
+  const { addProduct } = useContext(CartContext);
 
   //fetch product by id from API
   useEffect(() => {
@@ -73,7 +77,15 @@ const ProductDetails = () => {
                 </ProductStock>
 
                 <ProductAction>
-                    <button>Add to Cart</button>
+                    <button 
+                        onClick={() => 
+                            addProduct({
+                                id: product.data.id, 
+                                title: product.data.title, 
+                                price: product.data.price})}
+                    >
+                        Add to Cart
+                    </button>
                 </ProductAction>
             </ProductFinance>
 
