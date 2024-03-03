@@ -15,6 +15,7 @@ import Category from './Components/Category';
 import Layout from './Components/Layout';
 import Home from './Components/Home';
 import OrderConfirmation from './Components/OrderConfirmation';
+import SearchResults from './Components/SearchResults';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="cart" element={<ShoppingCart />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="orderconfirmation" element={<OrderConfirmation />} />
+          <Route path="search" element={<SearchResults />} />
           <Route path="products/:productId" element={<ProductDetails />} />
           <Route path="categories/:categoriesId" element={<Category />} />
         </Route>

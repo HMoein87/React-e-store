@@ -36,3 +36,8 @@ export const getProducts = (id) => {
 export const getProductsById = (id) => {
     return fetchAPI("/products/" + id);
 }
+
+//fetch products by query in serach input box
+export const getProductsByQuery = query => {
+    return fetchAPI('/products?q=' + query);
+}

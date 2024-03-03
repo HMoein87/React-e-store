@@ -1,8 +1,9 @@
 import React from 'react';
-
 import { Outlet, Link } from 'react-router-dom';
+
 import Footer from './Footer';
 import { CartIcon, HomeIcon } from './Icons';
+import Search from './Search';
 
 //Layout Component
 const Layout = ({categories}) => {
@@ -20,6 +21,8 @@ const Layout = ({categories}) => {
                 <div id='headerHomeIcon'>
                     <Link to='/'><HomeIcon width={40} /></Link>
                 </div>
+
+                <Search />
 
                 <div id='headerTitle'>Digi Shop</div>
 

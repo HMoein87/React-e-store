@@ -11,7 +11,7 @@ const Category = () => {
   const { categoriesId } = useParams();
 
   //products propery
-  const [products, setProducts] = useState({errormessage: '', data: []})
+  const [products, setProducts] = useState({errormessage: '', data: []});
 
   //fetch products of a specific category from API
   useEffect(() => {
@@ -21,7 +21,7 @@ const Category = () => {
     }
 
     fetchData();
-  }, [categoriesId])
+  }, [categoriesId]);
 
     //render products component
     const renderProducts = () => {
