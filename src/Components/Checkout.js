@@ -16,6 +16,8 @@ const Checkout = () => {
         },
     });
 
+    const [checked, setChecked] = useState(false);
+
     const errors = {
         "name": form.name.length === 0,
         "email": form.email.length === 0,
@@ -54,6 +56,10 @@ const Checkout = () => {
 
     const showError = (field) => (errors[field] ? form.touched[field] : false);
 
+    const handleChangeCheckBox = () => {
+        setChecked(!checked);
+    }
+
     return (
         <form onSubmit={handleSubmit}>
             <CheckoutContainer>
@@ -70,7 +76,7 @@ const Checkout = () => {
 
                 {/* Row 6 */}
                 <CheckoutTable>
-                    <CheckoutFormLabel>Name</CheckoutFormLabel>
+                    <CheckoutFormLabel>Name *</CheckoutFormLabel>
                     <CheckoutInput
                         type="text"
                         name="name"
@@ -79,12 +85,13 @@ const Checkout = () => {
                         onBlur={handleBlur}
                         placeholder="Enter name"
                     />
-                    <CheckoutFormLabel>Email</CheckoutFormLabel>
+                    <CheckoutFormLabel>Email *</CheckoutFormLabel>
                     <CheckoutInput
                         type="text"
                         name="email"
                         invalid={showError("email")}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         placeholder="Enter email"
                     />
                 </CheckoutTable>
@@ -100,7 +107,10 @@ const Checkout = () => {
                 {/* Row 9 */}
                 <CheckoutTable>
                     <CheckoutFormLabel>Same as shipping</CheckoutFormLabel>
-                    <CheckoutFormCheckbox type="checkbox" />
+                    <CheckoutFormCheckbox 
+                        type="checkbox"
+                        checked={checked}
+                        onChange={handleChangeCheckBox} />
 
                     <CheckoutFormLabel>Billing Address</CheckoutFormLabel>
 
@@ -109,23 +119,24 @@ const Checkout = () => {
                             type="text"
                             name="billingAddress1"
                             invalid={showError("billingAddress1")}
-                            placeholder="Enter first address line"
                         />
                         <input type="text" name="billingAddress2" />
-                        <input type="text" name="billingCity" />
+                        
                     </CheckoutAddress>
 
-                    <CheckoutFormLabel>Shipping Address</CheckoutFormLabel>
+                    <CheckoutFormLabel>Shipping Address *</CheckoutFormLabel>
 
                     <CheckoutAddress>
                         <CheckoutInput
                             type="text"
                             name="shippingAddress1"
                             invalid={showError("shippingAddress1")}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             placeholder="Enter first address line"
                         />
                         <input type="text" name="shippingAddress2" />
-                        <input type="text" name="shippingCity" />
+                        
                     </CheckoutAddress>
                 </CheckoutTable>
 
@@ -154,7 +165,7 @@ const CheckoutTable = styled.div`
     grid-column: 1 / span 3;
     display: grid;
     grid-template-rows: 0.25fr 0.25fr 0.25fr 0.25fr;
-    grid-template-columns: 0.1fr 0.4fr 0.1fr 0.4fr;
+    grid-template-columns: 0.2fr 0.4fr 0.2fr 0.4fr;
     column-gap: 20px;
     padding-left: 10px;
 `;
@@ -193,7 +204,8 @@ const CheckoutInput = styled.input`
         `
         border-color: red;
         border-width: 3px;
-    `}
+        `
+    };
 `;
 
 const CheckoutFormCheckbox = styled.input`
