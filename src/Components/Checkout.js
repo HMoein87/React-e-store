@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 const Checkout = () => {
-  const navigate = useNavigate();
+
+    //navigate through pages
+    const navigate = useNavigate();
+    //required fields
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -16,15 +19,22 @@ const Checkout = () => {
         },
     });
 
+    //shipping and billing properties 
     const [checked, setChecked] = useState(false);
+    const [billingAdd, setBillingAdd] = useState({billingAdd1: "", billingAdd2: ""});
+    const [shippingAddress, setShippingAddress] = useState({shippingAddress1: "", shippingAddress2: ""});
+    const [disableAdd, setDisableAdd] = useState(false);
 
+    //check if required fields are empty
     const errors = {
         "name": form.name.length === 0,
         "email": form.email.length === 0,
         "shippingAddress1": form.shippingAddress1.length === 0,
     };
+    //disable confirm order button
     const disabled = Object.keys(errors).some((x) => errors[x]);
 
+    //handle change of required fields
     const handleChange = (ev) => {
         const { name, value } = ev.target;
 
@@ -36,6 +46,7 @@ const Checkout = () => {
         });
     };
 
+    //handle blur of required fields
     const handleBlur = (ev) => {
         const { name } = ev.target;
         setForm((prevState) => {
@@ -46,6 +57,7 @@ const Checkout = () => {
         });
     };
 
+    //submit forms and navigate to order confirmation page
     const handleSubmit = (ev) => {
         if (disabled) {
             ev.preventDefault();
@@ -54,10 +66,31 @@ const Checkout = () => {
         navigate("/orderconfirmation");
     };
 
+    //show if required fields are empty and activate invalid property of the corresponding element
     const showError = (field) => (errors[field] ? form.touched[field] : false);
 
+    //handle checkbox change of the same shipping and billing address
     const handleChangeCheckBox = () => {
         setChecked(!checked);
+        setDisableAdd(!checked);
+    }
+
+    //handle blur of the same shipping and billing address
+    // and copy the billing address to shipping address in case checkbox is checked
+    const handleBlurAdd = (ev) => {
+        const { name, value } = ev.target;
+
+        setBillingAdd((prevState) => {
+            return {
+                ...prevState,
+                [name]: value,
+            };
+        });
+        if(checked) {
+            const shippingAdd = {shippingAddress1: billingAdd.billingAdd1, 
+                                 shippingAddress2: billingAdd.billingAdd2};
+            setShippingAddress(shippingAdd);        
+        }
     }
 
     return (
@@ -80,7 +113,7 @@ const Checkout = () => {
                     <CheckoutInput
                         type="text"
                         name="name"
-                        invalid={showError("name")}
+                        $invalid={showError("name")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder="Enter name"
@@ -89,7 +122,7 @@ const Checkout = () => {
                     <CheckoutInput
                         type="text"
                         name="email"
-                        invalid={showError("email")}
+                        $invalid={showError("email")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder="Enter email"
@@ -117,10 +150,16 @@ const Checkout = () => {
                     <CheckoutAddress>
                         <input
                             type="text"
-                            name="billingAddress1"
-                            invalid={showError("billingAddress1")}
+                            name="billingAdd1"
+                            defaultValue={billingAdd.billingAdd1}
+                            onBlur={handleBlurAdd}
                         />
-                        <input type="text" name="billingAddress2" />
+                        <input 
+                            type="text" 
+                            name="billingAdd2"
+                            defaultValue={billingAdd.billingAdd2} 
+                            onBlur={handleBlurAdd}
+                        />
                         
                     </CheckoutAddress>
 
@@ -130,12 +169,19 @@ const Checkout = () => {
                         <CheckoutInput
                             type="text"
                             name="shippingAddress1"
-                            invalid={showError("shippingAddress1")}
+                            $invalid={showError("shippingAddress1")}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            placeholder="Enter first address line"
+                            disabled={disableAdd}
+                            defaultValue={shippingAddress.shippingAddress1}
+                            placeholder={"Enter first address line"}
                         />
-                        <input type="text" name="shippingAddress2" />
+                        <input 
+                            type="text" 
+                            name="shippingAddress2" 
+                            disabled={disableAdd} 
+                            defaultValue={shippingAddress.shippingAddress2}
+                        />
                         
                     </CheckoutAddress>
                 </CheckoutTable>
@@ -200,7 +246,7 @@ const CheckoutInput = styled.input`
     border-style: solid;
 
     ${(props) =>
-        props.invalid &&
+        props.$invalid &&
         `
         border-color: red;
         border-width: 3px;
