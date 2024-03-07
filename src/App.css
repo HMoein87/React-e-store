@@ -84,7 +84,6 @@ nav ul li:hover {
 main {
     flex: 0.9;
     padding: 15px;
-    min-height: 1600px;
 }
 
 /* Style the footer */

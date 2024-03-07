@@ -1,0 +1,15 @@
+version: '1.00'
+
+services:
+  app:
+    container_name: docker-ecommerce-c
+    image: docker-ecommerce-i
+    build: 
+      context: .
+    ports:
+      - 3000:3000
+  json-server:
+    build: .
+    command: json-server --watch src/db/db.json --port 3001
+    ports:
+      - 3001:3001
